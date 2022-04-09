@@ -3,7 +3,7 @@
 PImage surf; // imagen que entrega el fitness
 
 // ===============================================================
-int puntos = 10;
+int puntos = 100;
 Particle[] fl; // arreglo de partículas
 float d = 15; // radio del círculo, solo para despliegue
 float gbestx = 512;
@@ -15,9 +15,9 @@ int evals = 0, evals_to_best = 0; //número de evaluaciones, sólo para desplieg
 float maxv = 3; // max velocidad (modulo)
 
 class Particle{
-  float x, y, fit; // current position(x-vector)  and fitness (x-fitness)
+  float x, y, fit;    // current position(x-vector)  and fitness (x-fitness)
   float px, py, pfit; // position (p-vector) and fitness (p-fitness) of best solution found by particle so far
-  float vx, vy; //vector de avance (v-vector)
+  float vx, vy;        //vector de avance (v-vector)
   
   // ---------------------------- Constructor
   Particle(){
@@ -27,7 +27,7 @@ class Particle{
   }
   
   // ---------------------------- Evalúa partícula
-  float Eval(PImage surf){ //recibe imagen que define función de fitness
+  float Eval(){ //recibe imagen que define función de fitness
     evals++;
     fit = 20 + (float)((Math.pow((x-512),2) - 10*Math.cos(2*Math.PI*(x-512))) + (Math.pow((y-512),2) - 10*Math.cos(2*Math.PI*(y-512)))); // obtiene valor de la funcion en posición (x,y)
     if(fit < pfit){ // actualiza local best si es mejor
@@ -121,7 +121,7 @@ void draw(){
   //mueve puntos
   for(int i = 0;i<puntos;i++){
     fl[i].move();
-    fl[i].Eval(surf);
+    fl[i].Eval();
   }
   
 }
