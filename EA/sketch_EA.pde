@@ -12,9 +12,9 @@ List<Individuos> newGen = new ArrayList<Individuos>();  // arreglo de los nuevos
 // Configuracion
 int population = 50;          // cantidad de individuos ( debe ser par)
 float radiacion = 40;         // prob. de mutar
-float radio = 0.8;            // potencia de la mutacion max 5.12
+float radio = 0.7;            // potencia de la mutacion max 5.12
 float piedad = 15;            // prob. de que gane
-float probCruzamientos = 50;  // probabilidad de que un individuo se cruze con otro
+float probCruzamientos = 0;  // probabilidad de que un individuo se cruze con otro
 
 // Despliegue
 float d = 15; // radio del círculo, solo para despliegue
@@ -86,20 +86,24 @@ class Individuos{
   void cruzamiento(){
     Collections.shuffle(parent);
     int i = 0;
+    //randomSeed(0);
     while( newGen.size() < population/2){
       for(int j = i+1; j <= population/2; j++){
-        if(j == population/2)
+        if(j == population/2){
           j = 0;
-        if(i == j)
+        } 
+        if(i == j){ 
           j = (population/2)+1;
+          mutacion(parent.get(i).x, parent.get(i).y);
+        }
         else if(random(100) < probCruzamientos){
           mutacion(((parent.get(i).x + parent.get(j).x) / 2),((parent.get(i).y + parent.get(j).y) / 2));
           j = population/2+1;
         }
+      }
       i++;
       if (i >= population/2)
         i = 0;
-      }
     } 
   }
   
